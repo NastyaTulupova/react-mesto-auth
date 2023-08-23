@@ -8,8 +8,12 @@ function checkResponse(res) {
   }
 }
 
+function request(url, options) {
+  return fetch(url, options).then(checkResponse);
+}
+
 export const register = (password, email) => {
-  return fetch(`${BASE_URL}/signup`, {
+  request(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -18,11 +22,11 @@ export const register = (password, email) => {
       password,
       email,
     }),
-  }).then((response) => checkResponse(response));
+  });
 };
 
 export const authorize = (password, email) => {
-  return fetch(`${BASE_URL}/signin`, {
+  request(`${BASE_URL}/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -31,15 +35,15 @@ export const authorize = (password, email) => {
       password,
       email,
     }),
-  }).then((response) => checkResponse(response));
+  });
 };
 
 export const getData = (jwt) => {
-  return fetch(`${BASE_URL}/users/me`, {
+  request(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${jwt}`,
     },
-  }).then((response) => checkResponse(response));
+  });
 };

@@ -7,20 +7,28 @@ function AddPlacePopup({
   onAddPlace,
   isPreloadingAddPlacePopup,
 }) {
-  const placeName = React.useRef();
-  const placeLink = React.useRef();
+  const [placeName, setPlaceName] = React.useState("");
+  const [placeLink, setPlaceLink] = React.useState("");
 
   React.useEffect(() => {
-    placeName.current.value = "";
-    placeLink.current.value = "";
+   setPlaceName("");
+   setPlaceLink("");
   }, [isOpen]);
+
+  function handleChangePlaceName(e) {
+    setPlaceName(e.target.value);
+  }
+
+  function handleChangePlaceLink(e) {
+    setPlaceLink(e.target.value);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
 
     onAddPlace({
-      name: placeName.current.value,
-      link: placeLink.current.value,
+      name: placeName,
+      link: placeLink,
     });
   }
 
@@ -43,7 +51,8 @@ function AddPlacePopup({
           placeholder="Название"
           minLength="2"
           maxLength="30"
-          ref={placeName}
+          value={placeName ?? ""}
+          onChange={handleChangePlaceName}
         />
         <span className="error" id="place-name-input-error"></span>
       </div>
@@ -55,7 +64,8 @@ function AddPlacePopup({
           id="link-input"
           name="link"
           placeholder="Ссылка на картинку"
-          ref={placeLink}
+          value={placeLink ?? ""}
+          onChange={handleChangePlaceLink}
         />
         <span className="error" id="link-input-error"></span>
       </div>

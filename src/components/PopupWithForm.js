@@ -13,8 +13,8 @@ function PopupWithForm({
     <div className={`popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`}>
       <div className="popup__container">
         <form
-          className="form form_type_${name}"
-          name="${name}-form"
+          className="`form form_type_${name}`"
+          name="`${name}-form`"
           noValidate
           onSubmit={onSubmit}
         >
